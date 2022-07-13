@@ -1,0 +1,240 @@
+CREATE TABLE categories (
+	category_id int NOT NULL,
+	category_name char(50) NOT NULL,
+	description char(300) NOT NULL
+);
+INSERT INTO categories VALUES (1, 'Beverages', 'Soft drinks, coffees, teas, beers, and ales');
+INSERT INTO categories VALUES (2, 'Condiments', 'Sweet and savory sauces, relishes, spreads, an...	');
+INSERT INTO categories VALUES (3, 'Confections', 'Desserts, candies, and sweet breads');
+INSERT INTO categories VALUES (4, 'Dairy Products', 'Cheeses');
+
+CREATE TABLE customers (
+	customer_id char(5) NOT NULL,
+	company_name char(50),
+	contact_name char(50),
+	contact_title char(50),
+	city char(50),
+	region char(10)
+);
+INSERT INTO customers VALUES ('ALFKI', 'Alfreds Futterkiste', 'Maria Anders', 'Sales Representative', 'Berlin', NULL);
+INSERT INTO customers VALUES ('ANATR', 'Ana Trujillo Emparedados y helados', 'Ana Trujillo', 'Owner', 'México D.F.', NULL);
+INSERT INTO customers VALUES ('ANTON', 'Antonio Moreno Taquería', 'Antonio Moreno', 'Owner', 'México D.F.', NULL);
+INSERT INTO customers VALUES ('AROUT', 'Around the Horn', 'Thomas Hardy', 'Sales Representative', 'London', NULL);
+
+
+CREATE TABLE territories (
+	territory_id int NOT NULL,
+	territory_description char(50),
+	region_id int NOT NULL
+);
+INSERT INTO territories VALUES (1581, 'Westboro', 1);
+INSERT INTO territories VALUES (1730, 'Bedford', 1);
+INSERT INTO territories VALUES (1833, 'Georgetow', 1);
+INSERT INTO territories VALUES (2116, 'Boston', 1);
+INSERT INTO territories VALUES (2139, 'Cambridge', 1);
+INSERT INTO territories VALUES (30346, 'Braintree', 1);
+INSERT INTO territories VALUES (2903, 'Providence', 1);
+INSERT INTO territories VALUES (3049, 'Hollis', 3);
+INSERT INTO territories VALUES (19713, 'Portsmouth', 3);
+INSERT INTO territories VALUES (6897, 'Wilton', 1);
+
+
+CREATE TABLE employee_territories (
+	employee_id	int NOT NULL,
+	territory_id int NOT NULL
+);
+INSERT INTO employee_territories VALUES (1, 6897);
+INSERT INTO employee_territories VALUES (1, 19713);
+INSERT INTO employee_territories VALUES (2, 1581);
+INSERT INTO employee_territories VALUES (2, 1730);
+INSERT INTO employee_territories VALUES (2, 2116);
+INSERT INTO employee_territories VALUES (2, 2139);
+INSERT INTO employee_territories VALUES (3, 30346);
+
+
+CREATE TABLE employees (
+	employee_id	int NOT NULL,
+	last_name char(50),
+	first_name char(50),
+	title char(50),
+	title_of_courtesy char(50),
+	birh_date date,
+	hire_date date
+);
+INSERT INTO employees VALUES (1, 'Davolio', 'Nancy', 'Sales Representative', 'Ms.', '1948-12-08', '1992-05-01');
+INSERT INTO employees VALUES (2, 'Fuller', 'Andrew', 'Vice President, Sales', 'Dr.', '1952-02-19', '1992-08-14');
+INSERT INTO employees VALUES (3, 'Leverling', 'Janet', 'Sales Representative', 'Ms.', '1963-08-30', '1992-04-01');
+
+
+CREATE TABLE order_details (
+	order_id int NOT NULL,
+	product_id int NOT NULL,
+	unit_price float,
+	quantity int,
+	discount float
+);
+INSERT INTO order_details VALUES (10248, 11, 14.0, 12, 0.0);
+INSERT INTO order_details VALUES (10248, 42, 9.8, 10, 0.0);
+INSERT INTO order_details VALUES (10248, 72, 34.8, 5, 0.0);
+INSERT INTO order_details VALUES (10249, 14, 18.6, 9, 0.0);
+INSERT INTO order_details VALUES (10249, 51, 42.4, 40, 0.0);
+INSERT INTO order_details VALUES (10250, 41, 7.7, 10, 0.0);
+INSERT INTO order_details VALUES (10250, 51, 42.4, 35, 0.15);
+INSERT INTO order_details VALUES (10250, 65, 16.8, 15, 0.15);
+INSERT INTO order_details VALUES (10251, 22, 16.8, 6, 0.05);
+INSERT INTO order_details VALUES (10251, 57, 15.6, 15, 0.05);
+
+
+CREATE TABLE orders (
+	order_id int NOT NULL,
+	customer_id char(5) NOT NULL,
+	employee_id int NOT NULL,
+	order_date date,
+	ship_country char(50)
+);
+INSERT INTO orders VALUES (10248, 'VINET', 1, '1996-07-04', 'France');
+INSERT INTO orders VALUES (10249, 'TOMSP', 2, '1996-07-05', 'Germany');
+INSERT INTO orders VALUES (10250, 'HANAR', 2, '1996-07-08', 'Brazil');
+INSERT INTO orders VALUES (10251, 'VINET', 3, '1996-07-08', 'France');
+
+
+
+CREATE TABLE products (
+	product_id int NOT NULL,
+	product_name char(70) NOT NULL,
+	supplier_id int NOT NULL,
+	category_id int NOT NULL,
+	unit_price float
+);
+INSERT INTO products VALUES (11, 'Queso Cabrales', 5, 4, 38.0);
+INSERT INTO products VALUES (42, 'Singaporean Hokkien Fried Meev', 4, 4, 14.0);
+INSERT INTO products VALUES (72, 'Mozzarella di Giovanni', 2, 3, 34.8);
+INSERT INTO products VALUES (14, 'Tofu', 3, 2, 23.25);
+INSERT INTO products VALUES (51, 'Manjimup Dried Apples', 1, 1, 53.0);
+INSERT INTO products VALUES (41, 'Jacks New England Clam Chowder', 2, 3, 9.65);
+INSERT INTO products VALUES (51, 'Manjimup Dried Apples', 1, 1, 53.0);
+INSERT INTO products VALUES (65, 'Louisiana Fiery Hot Pepper Sauce', 2, 2, 21.5);
+INSERT INTO products VALUES (22, 'Gustafs Knäckebröd', 5, 1, 21.0);
+INSERT INTO products VALUES (57, 'Ravioli Angelo', 3, 2, 19.50);
+
+CREATE TABLE region (
+	region_id int NOT NULL,
+	region_description char(50) NOT NULL
+);
+INSERT INTO region VALUES (1, 'Eastern');
+INSERT INTO region VALUES (2, 'Western');
+INSERT INTO region VALUES (3, 'Northern');
+INSERT INTO region VALUES (4, 'Southern');
+
+
+CREATE TABLE suppliers (
+	supplier_id int NOT NULL,
+	company_name char(70) NOT NULL,
+	contact_name char(70) NOT NULL,
+	contact_title char(70) NOT NULL,
+	city char(70) NOT NULL
+);
+INSERT INTO suppliers VALUES (1, 'Exotic Liquids', 'Charlotte Cooper', 'Purchasing Manager', 'London');
+INSERT INTO suppliers VALUES (2, 'New Orleans Cajun Delights', 'Shelley Burke', 'Order Administrator', 'New Orleans');
+INSERT INTO suppliers VALUES (3, 'Grandma Kellys Homestead', 'Regina Murphy', 'Sales Representative', 'Ann Arbor');
+INSERT INTO suppliers VALUES (4, 'Tokyo Traders', 'Yoshi Nagase', 'Marketing Manager', 'Tokyo');
+INSERT INTO suppliers VALUES (5, 'Cooperativa de Quesos Las Cabras', 'Antonio del Valle Saavedra', 'Export Administrator', 'Oviedo');
+
+/* criaçao da tabela ft_orders */
+select 
+orders.order_id,
+order_details.product_id,
+orders.customer_id,
+orders.employee_id,
+orders.ship_country,
+order_details.unit_price AS order_unit_price,
+order_details.quantity,
+order_details.discount,
+orders.order_date,
+EXTRACT (DAY FROM orders.order_date) as day,
+EXTRACT (MONTH FROM orders.order_date) as month,
+EXTRACT (YEAR FROM orders.order_date) as year
+into ft_orders
+from orders
+left join order_details ON orders.order_id = order_details.order_id
+
+select * from ft_orders
+/* criaçao da tabela products */		
+select 
+products.product_id,
+categories.category_id,
+categories.category_name,
+suppliers.supplier_id,
+suppliers.contact_name AS supplier_name,
+suppliers.city AS supplier_city,
+products.unit_price AS default_unit_price
+into dm_products
+from products
+left join categories ON products.category_id = categories.category_id
+left join suppliers ON products.supplier_id = suppliers.supplier_id
+
+/* criaçao da tabela territories */	
+select 
+territories.territory_id,
+employee_territories.employee_id,
+territories.territory_description,
+territories.region_id,
+region.region_description
+from territories
+left join employee_territories ON territories.territory_id = employee_territories.territory_id
+left join region ON territories.region_id = region.region_id
+
+
+select EXTRACT(month FROM order_date) as month, EXTRACT(year FROM order_date) as year from ft_orders 
+order by order_date DESC limit 1;
+
+select * from ft_orders 
+
+/* criaçao da tabela  ft_orders_last_month_by_employee */	
+select
+employee_id,
+sum(quantity*order_unit_price-discount) as sales,
+count(order_id) as number_of_orders
+from ft_orders
+where ft_orders.month = (select EXTRACT(month FROM order_date) as month from ft_orders order by order_date DESC limit 1) 
+and ft_orders.year = (select EXTRACT(year FROM order_date) as year from ft_orders order by order_date DESC limit 1)
+group by employee_id
+
+
+
+select
+month,
+year,
+avg(quantity*order_unit_price-discount) as avg_sales
+from ft_orders
+group by year, month
+
+/* criaçao da tabela  ft_orders_by_customers */
+select
+customer_id,
+sum(quantity*order_unit_price-discount) as total_spent_money,
+count(order_id) as number_of_orders
+from ft_orders
+group by customer_id
+
+select * from products
+/* 1) 3 produtos menos vendidos */
+
+select
+	ft_orders.order_id,
+	ft_orders.product_id,
+	products.product_name
+from ft_orders
+left join products on ft_orders.product_id = products.product_id
+
+
+
+select
+	ft_orders.product_id,
+	products.product_name,
+	count(ft_orders.product_id)
+from ft_orders
+left join products on ft_orders.product_id = products.product_id
+group by ft_orders.product_id, products.product_name
+
+select * from ft_orders
